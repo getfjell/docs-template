@@ -1,4 +1,5 @@
 export { DocsApp } from './components/DocsApp'
+export { Header } from './components/Header'
 export { Navigation } from './components/Navigation'
 export { ContentRenderer } from './components/ContentRenderer'
 export { Layout } from './components/Layout'

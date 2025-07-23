@@ -7,10 +7,8 @@ import * as contentLoader from '@/utils/contentLoader'
 
 // Mock the child components
 vi.mock('@/components/Navigation', () => ({
-  Navigation: ({ projectName, version, currentSection }: any) => (
+  Navigation: ({ currentSection }: any) => (
     <div data-testid="navigation">
-      <span data-testid="project-name">{projectName}</span>
-      <span data-testid="version">{version}</span>
       <span data-testid="current-section">{currentSection}</span>
     </div>
   )
@@ -95,12 +93,16 @@ describe('DocsApp', () => {
     })
   })
 
-  it('displays project name and version correctly', async () => {
+  it('loads successfully without sidebar header', async () => {
     render(<DocsApp config={mockConfig} />)
 
     await waitFor(() => {
-      expect(screen.getByTestId('project-name')).toHaveTextContent('Test Project')
-      expect(screen.getByTestId('version')).toHaveTextContent('1.0.0')
+      // Navigation should not have project name or version anymore
+      expect(screen.queryByTestId('project-name')).not.toBeInTheDocument()
+      expect(screen.queryByTestId('version')).not.toBeInTheDocument()
+
+      // Should have current section
+      expect(screen.getByTestId('current-section')).toHaveTextContent('overview')
     })
   })
 
@@ -166,7 +168,8 @@ describe('DocsApp', () => {
     render(<DocsApp config={envConfig} />)
 
     await waitFor(() => {
-      expect(screen.getByTestId('version')).toHaveTextContent('2.0.0')
+      // Version is no longer displayed in navigation
+      expect(screen.queryByTestId('version')).not.toBeInTheDocument()
     })
   })
 
@@ -182,7 +185,8 @@ describe('DocsApp', () => {
     render(<DocsApp config={windowConfig} />)
 
     await waitFor(() => {
-      expect(screen.getByTestId('version')).toHaveTextContent('3.0.0')
+      // Version is no longer displayed in navigation
+      expect(screen.queryByTestId('version')).not.toBeInTheDocument()
     })
   })
 
@@ -198,7 +202,8 @@ describe('DocsApp', () => {
     render(<DocsApp config={envConfig} />)
 
     await waitFor(() => {
-      expect(screen.getByTestId('version')).toHaveTextContent('dev')
+      // Version is no longer displayed in navigation
+      expect(screen.queryByTestId('version')).not.toBeInTheDocument()
     })
   })
 
@@ -249,5 +254,38 @@ describe('DocsApp', () => {
 
     expect(screen.getByTestId('current-section')).toHaveTextContent('overview')
     expect(screen.getByTestId('section-id')).toHaveTextContent('overview')
+  })
+
+  it('sets custom background image when configured', async () => {
+    const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty')
+    const configWithBackground = {
+      ...mockConfig,
+      branding: {
+        ...mockConfig.branding,
+        backgroundImage: '/custom-background.jpg'
+      }
+    }
+
+    render(<DocsApp config={configWithBackground} />)
+
+    await waitFor(() => {
+      expect(setPropertySpy).toHaveBeenCalledWith(
+        '--brand-background-image',
+        "url('/custom-background.jpg')"
+      )
+    })
+  })
+
+  it('does not set background image when not configured', async () => {
+    const setPropertySpy = vi.spyOn(document.documentElement.style, 'setProperty')
+
+    render(<DocsApp config={mockConfig} />)
+
+    await waitFor(() => {
+      expect(setPropertySpy).not.toHaveBeenCalledWith(
+        '--brand-background-image',
+        expect.any(String)
+      )
+    })
   })
 })
