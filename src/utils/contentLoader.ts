@@ -47,7 +47,7 @@ export const createGettingStartedContent = (content: string): string => {
   const basicSection = extractSection(content, 'Basic Usage')
   const configSection = extractSection(content, 'Configuration')
 
-    let result = '# Getting Started\n\n'
+  let result = '# Getting Started\n\n'
 
   // Only add sections if they were actually found (not the original content)
   if (installSection !== content && installSection.trim()) result += installSection + '\n\n'
