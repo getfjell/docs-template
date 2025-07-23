@@ -1,0 +1,7 @@
+/* Fjell Logging Project Theme */
+.brand-logging {
+  --color-accent: #ED8936;
+  --color-accent-light: #DD6B20;
+  --gradient-primary: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+  --gradient-text: linear-gradient(135deg, #ed8936 0%, #dd6b20 50%, #f6ad55 100%);
+}

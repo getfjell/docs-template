@@ -1,51 +1,27 @@
-/* Registry Theme */
-.brand-registry {
-  --brand-background-image: url('@pano.png');
+/*
+ * Theme System for Fjell Documentation Template
+ *
+ * Projects should define their own themes by creating CSS classes
+ * with the pattern .brand-{theme-name} and overriding these variables:
+ *
+ * --color-accent: Primary accent color
+ * --color-accent-light: Lighter accent color
+ * --gradient-primary: Primary gradient for buttons/badges
+ * --gradient-text: Text gradient for headings
+ *
+ * Example:
+ * .brand-my-project {
+ *   --color-accent: #667EEA;
+ *   --color-accent-light: #764BA2;
+ *   --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ *   --gradient-text: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #9f7aea 100%);
+ * }
+ */
+
+/* Example Theme - can be used as a reference */
+.brand-example {
   --color-accent: #667EEA;
   --color-accent-light: #764BA2;
-}
-
-/* HTTP API Theme */
-.brand-http-api {
-  --brand-background-image: url('/pano.png');
-  --color-accent: #48BB78;
-  --color-accent-light: #38A169;
-  --gradient-primary: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-  --gradient-text: linear-gradient(135deg, #48bb78 0%, #38a169 50%, #68d391 100%);
-}
-
-/* Logging Theme */
-.brand-logging {
-  --brand-background-image: url('/pano.png');
-  --color-accent: #ED8936;
-  --color-accent-light: #DD6B20;
-  --gradient-primary: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
-  --gradient-text: linear-gradient(135deg, #ed8936 0%, #dd6b20 50%, #f6ad55 100%);
-}
-
-/* Core Theme */
-.brand-core {
-  --brand-background-image: url('/pano.png');
-  --color-accent: #9F7AEA;
-  --color-accent-light: #805AD5;
-  --gradient-primary: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
-  --gradient-text: linear-gradient(135deg, #9f7aea 0%, #805ad5 50%, #b794f6 100%);
-}
-
-/* Cache Theme */
-.brand-cache {
-  --brand-background-image: url('/pano.png');
-  --color-accent: #38B2AC;
-  --color-accent-light: #319795;
-  --gradient-primary: linear-gradient(135deg, #38b2ac 0%, #319795 100%);
-  --gradient-text: linear-gradient(135deg, #38b2ac 0%, #319795 50%, #4fd1c7 100%);
-}
-
-/* Client API Theme */
-.brand-client-api {
-  --brand-background-image: url('/pano.png');
-  --color-accent: #EC4899;
-  --color-accent-light: #DB2777;
-  --gradient-primary: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
-  --gradient-text: linear-gradient(135deg, #ec4899 0%, #db2777 50%, #f472b6 100%);
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-text: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #9f7aea 100%);
 }

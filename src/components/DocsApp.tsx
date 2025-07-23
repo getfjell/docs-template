@@ -18,6 +18,14 @@ export const DocsApp: React.FC<DocsAppProps> = ({ config }) => {
     const loadDocuments = async () => {
       const loadedDocs: { [key: string]: string } = {}
 
+      // Set custom background image if provided
+      if (config.branding.backgroundImage) {
+        document.documentElement.style.setProperty(
+          '--brand-background-image',
+          `url('${config.branding.backgroundImage}')`
+        )
+      }
+
       // Load version
       if (config.version.source === 'manual' && config.version.value) {
         setVersion(config.version.value)
@@ -69,13 +77,12 @@ export const DocsApp: React.FC<DocsAppProps> = ({ config }) => {
       setSidebarOpen={setSidebarOpen}
       fullscreenImage={fullscreenImage}
       setFullscreenImage={setFullscreenImage}
+      version={version}
     >
       <Navigation
         sections={config.sections}
         currentSection={currentSection}
         onSectionChange={setCurrentSection}
-        projectName={config.projectName}
-        version={version}
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
