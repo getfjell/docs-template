@@ -1,5 +1,6 @@
 import React from 'react'
 import { DocsConfig } from '@/types'
+import { Header } from './Header'
 
 interface LayoutProps {
   config: DocsConfig
@@ -8,6 +9,7 @@ interface LayoutProps {
   setSidebarOpen: (open: boolean) => void
   fullscreenImage: string | null
   setFullscreenImage: (image: string | null) => void
+  version: string
 }
 
 export const Layout: React.FC<LayoutProps> = ({
@@ -16,13 +18,26 @@ export const Layout: React.FC<LayoutProps> = ({
   sidebarOpen,
   setSidebarOpen,
   fullscreenImage,
-  setFullscreenImage
+  setFullscreenImage,
+  version
 }) => {
   return (
     <div className={`docs-app ${config.branding.theme ? `brand-${config.branding.theme}` : ''}`}>
+      {/* Animated Background */}
       <div className="header-background"></div>
 
-      {children}
+      {/* Fixed Header */}
+      <Header
+        config={config}
+        version={version}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
+
+      {/* Layout */}
+      <div className="layout">
+        {children}
+      </div>
 
       {/* Fullscreen Image Modal */}
       {fullscreenImage && (
