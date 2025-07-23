@@ -26,9 +26,11 @@
     "scripts"
   ],
   "scripts": {
-    "build": "tsc --declaration --emitDeclarationOnly --outDir dist && vite build --mode lib",
+    "lint": "eslint . --ext .ts --fix",
+    "clean": "rimraf dist",
+    "build": "pnpm run lint &&tsc --declaration --emitDeclarationOnly --outDir dist && vite build --mode lib",
     "dev": "vite build --mode lib --watch",
-    "test": "vitest",
+    "test": "vitest --run --coverage",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
@@ -43,10 +45,16 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
+    "@fjell/eslint-config": "^1.0.5",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@vitejs/plugin-react": "^4.6.0",
+    "@vitest/coverage-v8": "3.2.4",
+    "jsdom": "^26.1.0",
+    "rimraf": "^6.0.1",
     "typescript": "^5.8.3",
     "vite": "^7.0.0",
     "vitest": "^3.2.4"
