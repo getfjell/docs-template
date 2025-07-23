@@ -1,10 +1,10 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
-  loadDocument,
-  processContent,
-  extractSection,
+  createGettingStartedContent,
   extractMultipleSections,
-  createGettingStartedContent
+  extractSection,
+  loadDocument,
+  processContent
 } from '../../src/utils/contentLoader'
 
 // Mock fetch for loadDocument tests

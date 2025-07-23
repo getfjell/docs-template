@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { ContentRenderer } from '../../src/components/ContentRenderer'
 import { DocsConfig, DocumentSection } from '../../src/types'
 
@@ -85,7 +85,7 @@ describe('ContentRenderer', () => {
       />
     )
 
-        // Check breadcrumb elements
+    // Check breadcrumb elements
     expect(screen.getByText('Test Project')).toBeInTheDocument()
     expect(screen.getByText('A test section for unit testing')).toBeInTheDocument()
 
