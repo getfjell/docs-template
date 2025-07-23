@@ -1,0 +1,7 @@
+/* Fjell Core Project Theme */
+.brand-core {
+  --color-accent: #9F7AEA;
+  --color-accent-light: #805AD5;
+  --gradient-primary: linear-gradient(135deg, #9f7aea 0%, #805ad5 100%);
+  --gradient-text: linear-gradient(135deg, #9f7aea 0%, #805ad5 50%, #b794f6 100%);
+}

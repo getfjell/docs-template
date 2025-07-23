@@ -1,0 +1,7 @@
+/* Demo Project Theme */
+.brand-demo {
+  --color-accent: #667EEA;
+  --color-accent-light: #764BA2;
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-text: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #9f7aea 100%);
+}

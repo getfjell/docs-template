@@ -1,10 +1,13 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "fjell-copy-docs": "./scripts/copy-docs.js"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -23,13 +26,16 @@
   "files": [
     "dist",
     "config",
-    "scripts"
+    "scripts",
+    "examples"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "clean": "rimraf dist",
     "build": "pnpm run lint &&tsc --declaration --emitDeclarationOnly --outDir dist && vite build --mode lib",
     "dev": "vite build --mode lib --watch",
+    "demo": "cd demo && pnpm install && pnpm dev",
+    "demo:build": "cd demo && pnpm install && pnpm build",
     "test": "vitest --run --coverage",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm run clean && pnpm run build"

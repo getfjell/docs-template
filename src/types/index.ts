@@ -8,10 +8,13 @@ export interface DocumentSection {
 
 export interface BrandingConfig {
   theme: string;
+  tagline: string;
   logo?: string;
   backgroundImage?: string;
   primaryColor?: string;
   accentColor?: string;
+  github?: string;
+  npm?: string;
 }
 
 export interface VersionConfig {

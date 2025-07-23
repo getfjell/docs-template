@@ -28,8 +28,6 @@ const defaultProps = {
   sections: mockSections,
   currentSection: 'getting-started',
   onSectionChange: vi.fn(),
-  projectName: 'Test Project',
-  version: '1.2.3',
   sidebarOpen: false,
   setSidebarOpen: vi.fn()
 }
@@ -56,12 +54,17 @@ describe('Navigation', () => {
       expect(sidebar).not.toHaveClass('sidebar-open')
     })
 
-    it('renders logo and project information', () => {
+    it('renders navigation without header section', () => {
       render(<Navigation {...defaultProps} />)
 
-      expect(screen.getByText('Fjell')).toBeInTheDocument()
-      expect(screen.getByText('Test Project')).toBeInTheDocument()
-      expect(screen.getByText('v1.2.3')).toBeInTheDocument()
+      // Should not have sidebar header elements anymore
+      expect(screen.queryByText('Fjell')).not.toBeInTheDocument()
+      expect(screen.queryByText('Test Project')).not.toBeInTheDocument()
+      expect(screen.queryByText('v1.2.3')).not.toBeInTheDocument()
+
+      // Should have navigation sections
+      expect(screen.getByText('Getting Started')).toBeInTheDocument()
+      expect(screen.getByText('API Reference')).toBeInTheDocument()
     })
 
     it('renders footer text', () => {
@@ -259,27 +262,4 @@ describe('Navigation', () => {
     })
   })
 
-  describe('Project Information Display', () => {
-    it('displays project name in header', () => {
-      render(<Navigation {...defaultProps} projectName="Custom Project Name" />)
-
-      expect(screen.getByText('Custom Project Name')).toBeInTheDocument()
-      expect(screen.getByText('Custom Project Name')).toHaveClass('project-title')
-    })
-
-    it('displays version in badge format', () => {
-      render(<Navigation {...defaultProps} version="2.0.0-beta" />)
-
-      const versionElement = screen.getByText('v2.0.0-beta')
-      expect(versionElement).toBeInTheDocument()
-      expect(versionElement).toHaveClass('version-badge')
-    })
-
-    it('handles empty version string', () => {
-      render(<Navigation {...defaultProps} version="" />)
-
-      const versionElement = screen.getByText('v')
-      expect(versionElement).toBeInTheDocument()
-    })
-  })
 })

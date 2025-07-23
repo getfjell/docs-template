@@ -5,8 +5,6 @@ interface NavigationProps {
   sections: DocumentSection[]
   currentSection: string
   onSectionChange: (sectionId: string) => void
-  projectName: string
-  version: string
   sidebarOpen: boolean
   setSidebarOpen: (open: boolean) => void
 }
@@ -15,8 +13,6 @@ export const Navigation: React.FC<NavigationProps> = ({
   sections,
   currentSection,
   onSectionChange,
-  projectName,
-  version,
   sidebarOpen,
   setSidebarOpen
 }) => {
@@ -37,20 +33,6 @@ export const Navigation: React.FC<NavigationProps> = ({
 
       {/* Sidebar */}
       <div className={`sidebar ${sidebarOpen ? 'sidebar-open' : ''}`}>
-        <div className="sidebar-header">
-          <div className="logo-section">
-            <div className="logo-container">
-              <div className="logo">
-                <span className="logo-text">Fjell</span>
-              </div>
-            </div>
-            <div className="project-info">
-              <h1 className="project-title">{projectName}</h1>
-              <div className="version-badge">v{version}</div>
-            </div>
-          </div>
-        </div>
-
         <nav className="sidebar-nav">
           <ul className="nav-sections">
             {sections.map((section) => (
