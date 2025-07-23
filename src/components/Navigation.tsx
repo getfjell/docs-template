@@ -1,5 +1,5 @@
 import React from 'react'
-import { DocumentSection } from '../types'
+import { DocumentSection } from '@/types'
 
 interface NavigationProps {
   sections: DocumentSection[]

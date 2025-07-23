@@ -18,7 +18,7 @@ export const createDocsViteConfig = (options = {}) => {
       readFileSync(resolve(process.cwd(), packageJsonPath), 'utf-8')
     )
     version = packageJson.version
-  } catch (error) {
+  } catch {
     console.warn('Could not read package.json for version, using default')
   }
 
