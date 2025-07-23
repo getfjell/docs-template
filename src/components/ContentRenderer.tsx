@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import remarkGfm from 'remark-gfm'
-import { DocumentSection, DocsConfig } from '../types'
+import { DocsConfig, DocumentSection } from '@/types'
 
 interface ContentRendererProps {
   content: string
@@ -16,7 +16,6 @@ interface ContentRendererProps {
 
 export const ContentRenderer: React.FC<ContentRendererProps> = ({
   content,
-  sectionId: _sectionId,
   sectionData,
   loading,
   config,
@@ -56,7 +55,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
-                             code({node, inline, className, children, ...props}: any) {
+              code({inline, className, children, ...props}: any) {
                 const match = /language-(\w+)/.exec(className || '')
                 return !inline && match ? (
                                      <SyntaxHighlighter
@@ -75,12 +74,12 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
               },
               img({src, alt, ...props}) {
                 // Handle relative image paths
-                const imageSrc = src?.startsWith('/') ? src : `${config.basePath}${src}`
+                const imageSrc = src?.startsWith('/') ? src : `${config.basePath}${src || ''}`
 
                 return (
                   <img
                     src={imageSrc}
-                    alt={alt}
+                    alt={alt || ''}
                     {...props}
                     onClick={() => onImageClick(imageSrc)}
                     style={{ cursor: 'pointer' }}
@@ -92,13 +91,17 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
                 // Handle relative links
                 const isExternal = href?.startsWith('http') || href?.startsWith('//')
 
+                const linkProps = {
+                  href,
+                  ...props,
+                  ...(isExternal && {
+                    target: '_blank',
+                    rel: 'noopener noreferrer'
+                  })
+                }
+
                 return (
-                  <a
-                    href={href}
-                    {...props}
-                    target={isExternal ? '_blank' : undefined}
-                    rel={isExternal ? 'noopener noreferrer' : undefined}
-                  >
+                  <a {...linkProps}>
                     {children}
                   </a>
                 )

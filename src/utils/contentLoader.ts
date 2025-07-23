@@ -8,7 +8,7 @@ export const loadDocument = async (url: string): Promise<string> => {
   return response.text()
 }
 
-export const processContent = (content: string, _sectionId: string): string => {
+export const processContent = (content: string): string => {
   // Basic content processing - can be extended per project
   return content
 }
@@ -48,9 +48,11 @@ export const createGettingStartedContent = (content: string): string => {
   const configSection = extractSection(content, 'Configuration')
 
   let result = '# Getting Started\n\n'
-  if (installSection) result += installSection + '\n\n'
-  if (basicSection) result += basicSection + '\n\n'
-  if (configSection) result += configSection + '\n\n'
+
+  // Only add sections if they were actually found (not the original content)
+  if (installSection !== content && installSection.trim()) result += installSection + '\n\n'
+  if (basicSection !== content && basicSection.trim()) result += basicSection + '\n\n'
+  if (configSection !== content && configSection.trim()) result += configSection + '\n\n'
 
   return result
 }
