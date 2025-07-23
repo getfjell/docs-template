@@ -1,5 +1,5 @@
 import React from 'react'
-import { DocsConfig } from '../types'
+import { DocsConfig } from '@/types'
 
 interface LayoutProps {
   config: DocsConfig

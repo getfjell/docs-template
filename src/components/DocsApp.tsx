@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { DocsAppProps, DocumentSection } from '../types'
+import { DocsAppProps, DocumentSection } from '@/types'
 import { Navigation } from './Navigation'
 import { ContentRenderer } from './ContentRenderer'
 import { Layout } from './Layout'
-import { loadDocument } from '../utils/contentLoader'
-import '../styles/base.css'
+import { loadDocument } from '@/utils/contentLoader'
+import '@/styles/base.css'
 
 export const DocsApp: React.FC<DocsAppProps> = ({ config }) => {
   const [currentSection, setCurrentSection] = useState(config.sections[0]?.id || 'overview')
