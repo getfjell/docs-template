@@ -31,7 +31,8 @@
     "build": "pnpm run lint &&tsc --declaration --emitDeclarationOnly --outDir dist && vite build --mode lib",
     "dev": "vite build --mode lib --watch",
     "test": "vitest --run --coverage",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm run clean && pnpm run build"
   },
   "peerDependencies": {
     "react": "^19.1.0",
