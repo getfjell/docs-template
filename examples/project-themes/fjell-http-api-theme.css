@@ -1,0 +1,7 @@
+/* Fjell HTTP API Project Theme */
+.brand-http-api {
+  --color-accent: #48BB78;
+  --color-accent-light: #38A169;
+  --gradient-primary: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  --gradient-text: linear-gradient(135deg, #48bb78 0%, #38a169 50%, #68d391 100%);
+}
