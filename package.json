@@ -1,6 +1,6 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
@@ -32,8 +32,8 @@
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "clean": "rimraf dist",
-    "build": "pnpm run lint &&tsc --declaration --emitDeclarationOnly --outDir dist && vite build --mode lib",
-    "dev": "vite build --mode lib --watch",
+    "build": "pnpm run lint && pnpm exec tsc",
+    "dev": "pnpm exec tsc --watch",
     "demo": "cd demo && pnpm install && pnpm dev",
     "demo:build": "cd demo && pnpm install && pnpm build",
     "test": "vitest --run --coverage",
@@ -69,7 +69,6 @@
     "jsdom": "^26.1.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3",
-    "vite": "^7.0.6",
     "vitest": "^3.2.4"
   },
   "keywords": [
@@ -77,7 +76,7 @@
     "documentation",
     "template",
     "react",
-    "vite"
+    "typescript"
   ],
   "author": "Fjell Team",
   "license": "MIT",

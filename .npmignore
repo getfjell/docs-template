@@ -20,3 +20,6 @@ yarn.lock
 vite.config.ts
 eslint.config.mjs
 README.md
+esbuild.config.js
+vitest.config.ts
+tsconfig.json
