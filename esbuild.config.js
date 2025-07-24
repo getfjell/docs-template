@@ -72,6 +72,27 @@ const scriptsConfig = {
   }
 }
 
+// Configuration for building config
+const configConfig = {
+  entryPoints: ['src/config/index.ts'],
+  bundle: true,
+  outdir: 'dist/config',
+  format: 'esm',
+  target: 'es2022',
+  platform: 'node',
+  sourcemap: true,
+  minify: false,
+  splitting: false,
+  external: [
+    'vite',
+    '@vitejs/plugin-react',
+    ...Object.keys(pkg.peerDependencies || {}),
+    ...Object.keys(pkg.dependencies || {})
+  ],
+  tsconfig: './tsconfig.json',
+  logLevel: 'info'
+}
+
 async function buildLib() {
   try {
     console.log('Building library...')
@@ -107,9 +128,24 @@ async function buildScripts() {
   }
 }
 
+async function buildConfig() {
+  try {
+    console.log('Building config...')
+
+    await build(configConfig)
+
+    console.log('Config build completed successfully')
+
+  } catch (error) {
+    console.error('Config build failed:', error)
+    process.exit(1)
+  }
+}
+
 async function buildAll() {
   await buildLib()
   await buildScripts()
+  await buildConfig()
 }
 
 buildAll()

@@ -1,8 +1,15 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { readFileSync, resolve } from 'fs'
+import { readFileSync } from 'fs'
+import { resolve } from 'path'
 
-export const createDocsViteConfig = (options = {}) => {
+export const createDocsViteConfig = (options: {
+  basePath?: string
+  port?: number
+  plugins?: any[]
+  packageJsonPath?: string
+  defineVars?: Record<string, any>
+} = {}) => {
   const {
     basePath = '/',
     port = 3000,
