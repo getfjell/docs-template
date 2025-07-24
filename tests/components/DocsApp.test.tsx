@@ -75,6 +75,9 @@ describe('DocsApp', () => {
     // Clear any existing window properties
     delete (window as any).__APP_VERSION__
     delete process.env.TEST_VERSION
+
+    // Mock fetch for package.json tests
+    global.fetch = vi.fn()
   })
 
   afterEach(() => {
@@ -204,6 +207,122 @@ describe('DocsApp', () => {
     await waitFor(() => {
       // Version is no longer displayed in navigation
       expect(screen.queryByTestId('version')).not.toBeInTheDocument()
+    })
+  })
+
+  it('loads version from package.json with default path', async () => {
+    const mockFetch = global.fetch as any
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ version: '2.1.0' })
+    })
+
+    const packageConfig = {
+      ...mockConfig,
+      version: {
+        source: 'package.json' as const
+      }
+    }
+
+    render(<DocsApp config={packageConfig} />)
+
+    await waitFor(() => {
+      expect(mockFetch).toHaveBeenCalledWith('../package.json')
+    })
+  })
+
+  it('loads version from package.json with custom file path', async () => {
+    const mockFetch = global.fetch as any
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ version: '3.2.1' })
+    })
+
+    const packageConfig = {
+      ...mockConfig,
+      version: {
+        source: 'package.json' as const,
+        file: './custom/package.json'
+      }
+    }
+
+    render(<DocsApp config={packageConfig} />)
+
+    await waitFor(() => {
+      expect(mockFetch).toHaveBeenCalledWith('./custom/package.json')
+    })
+  })
+
+  it('handles package.json fetch failure gracefully', async () => {
+    const mockFetch = global.fetch as any
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 404
+    })
+
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+
+    const packageConfig = {
+      ...mockConfig,
+      version: {
+        source: 'package.json' as const
+      }
+    }
+
+    render(<DocsApp config={packageConfig} />)
+
+    await waitFor(() => {
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Could not load package.json from ../package.json'
+      )
+    })
+
+    consoleSpy.mockRestore()
+  })
+
+  it('handles package.json parse error gracefully', async () => {
+    const mockFetch = global.fetch as any
+    mockFetch.mockRejectedValueOnce(new Error('Network error'))
+
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+
+    const packageConfig = {
+      ...mockConfig,
+      version: {
+        source: 'package.json' as const
+      }
+    }
+
+    render(<DocsApp config={packageConfig} />)
+
+    await waitFor(() => {
+      expect(consoleSpy).toHaveBeenCalledWith(
+        'Error loading version from package.json:',
+        expect.any(Error)
+      )
+    })
+
+    consoleSpy.mockRestore()
+  })
+
+  it('handles package.json with missing version field', async () => {
+    const mockFetch = global.fetch as any
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ name: 'test-package' }) // No version field
+    })
+
+    const packageConfig = {
+      ...mockConfig,
+      version: {
+        source: 'package.json' as const
+      }
+    }
+
+    render(<DocsApp config={packageConfig} />)
+
+    await waitFor(() => {
+      expect(mockFetch).toHaveBeenCalledWith('../package.json')
     })
   })
 
