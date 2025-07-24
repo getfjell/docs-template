@@ -26,13 +26,12 @@
   "files": [
     "dist",
     "config",
-    "scripts",
     "examples"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "clean": "rimraf dist",
-    "build": "pnpm run lint && pnpm exec tsc",
+    "build": "pnpm run clean && pnpm run lint && node esbuild.config.js",
     "dev": "pnpm exec tsc --watch",
     "demo": "cd demo && pnpm install && pnpm dev",
     "demo:build": "cd demo && pnpm install && pnpm build",
