@@ -1,6 +1,6 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
@@ -26,13 +26,12 @@
   "files": [
     "dist",
     "config",
-    "scripts",
     "examples"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "clean": "rimraf dist",
-    "build": "pnpm run lint && pnpm exec tsc",
+    "build": "pnpm run clean && pnpm run lint && node esbuild.config.js",
     "dev": "pnpm exec tsc --watch",
     "demo": "cd demo && pnpm install && pnpm dev",
     "demo:build": "cd demo && pnpm install && pnpm build",
@@ -65,6 +64,7 @@
     "@typescript-eslint/parser": "^8.38.0",
     "@vitejs/plugin-react": "^4.7.0",
     "@vitest/coverage-v8": "3.2.4",
+    "esbuild": "^0.25.8",
     "eslint": "^9.31.0",
     "jsdom": "^26.1.0",
     "rimraf": "^6.0.1",
