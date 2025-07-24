@@ -23,3 +23,5 @@ README.md
 esbuild.config.js
 vitest.config.ts
 tsconfig.json
+examples/
+scripts/

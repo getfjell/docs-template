@@ -1,14 +1,17 @@
-#!/usr/bin/env node
-
 import { execSync } from 'child_process';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import type { DocsConfig } from '@fjell/docs-template';
 
-async function copyDocs() {
+interface CompileError extends Error {
+  message: string;
+}
+
+export async function copyDocs(cwd?: string): Promise<void> {
   try {
     // Look for docs.config.ts in the current working directory
-    const cwd = process.cwd();
-    const configPath = join(cwd, 'docs.config.ts');
+    const workingDir: string = cwd || process.cwd();
+    const configPath: string = join(workingDir, 'docs.config.ts');
 
     if (!existsSync(configPath)) {
       console.error('Error: docs.config.ts not found in current directory');
@@ -19,23 +22,24 @@ async function copyDocs() {
     console.log('Loading configuration from:', configPath);
 
     // Compile TypeScript config to JavaScript first
-    const configJsPath = configPath.replace('.ts', '.js');
+    const configJsPath: string = configPath.replace('.ts', '.js');
     console.log('Compiling TypeScript configuration...');
 
     try {
-      execSync(`npx tsc ${configPath} --target es2022 --module esnext --moduleResolution bundler`, { cwd });
+      execSync(`npx tsc ${configPath} --target es2022 --module esnext --moduleResolution bundler`, { cwd: workingDir });
     } catch (error) {
-      console.error('Failed to compile TypeScript configuration:', error.message);
+      const compileError = error as CompileError;
+      console.error('Failed to compile TypeScript configuration:', compileError.message);
       process.exit(1);
     }
 
     // Import the compiled configuration with cache busting
-    const configJsUrl = `file://${configJsPath}?${Date.now()}`;
-    const { default: config } = await import(configJsUrl);
+    const configJsUrl: string = `file://${configJsPath}?${Date.now()}`;
+    const { default: config }: { default: DocsConfig } = await import(configJsUrl);
 
     // Clean up the compiled JavaScript file
     try {
-      execSync(`rm ${configJsPath}`, { cwd });
+      execSync(`rm ${configJsPath}`, { cwd: workingDir });
     } catch {
       // Ignore cleanup errors
     }
@@ -55,22 +59,22 @@ async function copyDocs() {
         continue;
       }
 
-      const command = `cp ${file.source} ${file.destination}`;
+      const command: string = `cp ${file.source} ${file.destination}`;
       console.log(`Executing: ${command}`);
 
       try {
-        execSync(command, { cwd });
+        execSync(command, { cwd: workingDir });
       } catch (error) {
-        console.error(`Failed to copy ${file.source} to ${file.destination}:`, error.message);
+        const copyError = error as CompileError;
+        console.error(`Failed to copy ${file.source} to ${file.destination}:`, copyError.message);
         process.exit(1);
       }
     }
 
     console.log('Documentation files copied successfully!');
   } catch (error) {
-    console.error('Error copying documentation files:', error.message);
+    const generalError = error as Error;
+    console.error('Error copying documentation files:', generalError.message);
     process.exit(1);
   }
 }
-
-copyDocs();
