@@ -28,6 +28,11 @@ export interface VitePluginConfig {
   config: any;
 }
 
+export interface FileToCopy {
+  source: string;
+  destination: string;
+}
+
 export interface DocsConfig {
   projectName: string;
   basePath: string;
@@ -39,6 +44,7 @@ export interface DocsConfig {
   customContent?: {
     [sectionId: string]: (content: string) => string;
   };
+  filesToCopy: FileToCopy[];
 }
 
 export interface DocsAppProps {
