@@ -26,26 +26,15 @@ export const DocsApp: React.FC<DocsAppProps> = ({ config }) => {
         )
       }
 
-      // Load version
+      // This block determines which version string to display in the docs UI.
+      // It checks the config.version.source to decide where to get the version:
+      // 1. If the source is 'manual' and a value is provided, use that value.
+      // 2. If the source is 'env' and an environment variable name is provided, use the value of that environment variable (or 'dev' if not set).
+      // 3. Otherwise, fall back to a version injected at build time on the window object, or use '1.0.0' as a default.
       if (config.version.source === 'manual' && config.version.value) {
         setVersion(config.version.value)
       } else if (config.version.source === 'env' && config.version.envVar) {
         setVersion(process.env[config.version.envVar] || 'dev')
-      } else if (config.version.source === 'package.json') {
-        try {
-          const packageFile = config.version.file || '../package.json'
-          const response = await fetch(packageFile)
-          if (response.ok) {
-            const packageData = await response.json()
-            setVersion(packageData.version || 'dev')
-          } else {
-            console.warn(`Could not load package.json from ${packageFile}`)
-            setVersion('dev')
-          }
-        } catch (error) {
-          console.error('Error loading version from package.json:', error)
-          setVersion('dev')
-        }
       } else {
         // Default to trying to get from injected version
         setVersion((window as any).__APP_VERSION__ || '1.0.0')
