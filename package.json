@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "fjell-copy-docs": "./scripts/copy-docs.js"
+    "copy-docs": "./scripts/copy-docs.js"
   },
   "exports": {
     ".": {
