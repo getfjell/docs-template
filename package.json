@@ -21,17 +21,21 @@
     "./config": {
       "import": "./dist/config/index.js",
       "types": "./dist/config/index.d.ts"
-    }
+    },
+    "./tsconfig.docs.json": "./tsconfig.docs.json",
+    "./tsconfig.node.json": "./tsconfig.node.json"
   },
   "files": [
     "dist",
     "config",
-    "examples"
+    "examples",
+    "tsconfig.docs.json",
+    "tsconfig.node.json"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "clean": "rimraf dist",
-    "build": "pnpm run clean && pnpm run lint && node esbuild.config.js",
+    "build": "pnpm run clean && pnpm run lint && node build.js",
     "dev": "pnpm exec tsc --watch",
     "demo": "cd demo && pnpm install && pnpm dev",
     "demo:build": "cd demo && pnpm install && pnpm build",
