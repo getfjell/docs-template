@@ -28,6 +28,7 @@ export const createDocsViteConfig = (options = {}) => {
     build: {
       outDir: 'dist',
       emptyOutDir: true,
+      assetsDir: '', // Keep assets in root instead of assets/ subdirectory
     },
     server: {
       port
