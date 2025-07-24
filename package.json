@@ -1,12 +1,12 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "fjell-copy-docs": "./scripts/copy-docs.js"
+    "copy-docs": "./scripts/copy-docs.js"
   },
   "exports": {
     ".": {
@@ -69,7 +69,7 @@
     "jsdom": "^26.1.0",
     "rimraf": "^6.0.1",
     "typescript": "^5.8.3",
-    "vite": "^7.0.5",
+    "vite": "^7.0.6",
     "vitest": "^3.2.4"
   },
   "keywords": [
