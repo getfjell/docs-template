@@ -1,6 +1,6 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
@@ -21,17 +21,21 @@
     "./config": {
       "import": "./dist/config/index.js",
       "types": "./dist/config/index.d.ts"
-    }
+    },
+    "./tsconfig.docs.json": "./tsconfig.docs.json",
+    "./tsconfig.node.json": "./tsconfig.node.json"
   },
   "files": [
     "dist",
     "config",
-    "examples"
+    "examples",
+    "tsconfig.docs.json",
+    "tsconfig.node.json"
   ],
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "clean": "rimraf dist",
-    "build": "pnpm run clean && pnpm run lint && node esbuild.config.js",
+    "build": "pnpm run clean && pnpm run lint && node build.js",
     "dev": "pnpm exec tsc --watch",
     "demo": "cd demo && pnpm install && pnpm dev",
     "demo:build": "cd demo && pnpm install && pnpm build",
@@ -53,7 +57,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.31.0",
-    "@fjell/eslint-config": "^1.0.5",
+    "@fjell/eslint-config": "^1.1.2",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^24.1.0",
