@@ -31,6 +31,21 @@ export const DocsApp: React.FC<DocsAppProps> = ({ config }) => {
         setVersion(config.version.value)
       } else if (config.version.source === 'env' && config.version.envVar) {
         setVersion(process.env[config.version.envVar] || 'dev')
+      } else if (config.version.source === 'package.json') {
+        try {
+          const packageFile = config.version.file || '../package.json'
+          const response = await fetch(packageFile)
+          if (response.ok) {
+            const packageData = await response.json()
+            setVersion(packageData.version || 'dev')
+          } else {
+            console.warn(`Could not load package.json from ${packageFile}`)
+            setVersion('dev')
+          }
+        } catch (error) {
+          console.error('Error loading version from package.json:', error)
+          setVersion('dev')
+        }
       } else {
         // Default to trying to get from injected version
         setVersion((window as any).__APP_VERSION__ || '1.0.0')
