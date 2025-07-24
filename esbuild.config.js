@@ -16,7 +16,7 @@ const copyCSS = () => {
   })
 
   writeFileSync('dist/index.css', allCSS)
-  console.log('✅ CSS files bundled to dist/index.css')
+  console.log('CSS files bundled to dist/index.css')
 }
 
 const config = {
@@ -85,10 +85,10 @@ async function buildLib() {
     // Write metafile for analysis
     writeFileSync('dist/meta.json', JSON.stringify(result.metafile, null, 2))
 
-    console.log('✅ Library build completed successfully')
+    console.log('Library build completed successfully')
 
   } catch (error) {
-    console.error('❌ Library build failed:', error)
+    console.error('Library build failed:', error)
     process.exit(1)
   }
 }
@@ -99,10 +99,10 @@ async function buildScripts() {
 
     await build(scriptsConfig)
 
-    console.log('✅ Scripts build completed successfully')
+    console.log('Scripts build completed successfully')
 
   } catch (error) {
-    console.error('❌ Scripts build failed:', error)
+    console.error('Scripts build failed:', error)
     process.exit(1)
   }
 }
