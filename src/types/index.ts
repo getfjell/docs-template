@@ -18,7 +18,7 @@ export interface BrandingConfig {
 }
 
 export interface VersionConfig {
-  source: 'package.json' | 'manual' | 'env';
+  source: 'manual' | 'env';
   value?: string;
   envVar?: string;
 }
