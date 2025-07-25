@@ -30,11 +30,15 @@ export const DocsApp: React.FC<DocsAppProps> = ({ config }) => {
       // It checks the config.version.source to decide where to get the version:
       // 1. If the source is 'manual' and a value is provided, use that value.
       // 2. If the source is 'env' and an environment variable name is provided, use the value of that environment variable (or 'dev' if not set).
-      // 3. Otherwise, fall back to a version injected at build time on the window object, or use '1.0.0' as a default.
+      // 3. If the source is 'package.json', use the version injected at build time from the package.json file.
+      // 4. Otherwise, fall back to a version injected at build time on the window object, or use '1.0.0' as a default.
       if (config.version.source === 'manual' && config.version.value) {
         setVersion(config.version.value)
       } else if (config.version.source === 'env' && config.version.envVar) {
         setVersion(process.env[config.version.envVar] || 'dev')
+      } else if (config.version.source === 'package.json') {
+        // Use the version injected at build time from package.json
+        setVersion((window as any).__APP_VERSION__ || '1.0.0')
       } else {
         // Default to trying to get from injected version
         setVersion((window as any).__APP_VERSION__ || '1.0.0')
