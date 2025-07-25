@@ -1,6 +1,6 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.24",
+  "version": "1.0.25",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
