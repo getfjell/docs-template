@@ -29,8 +29,22 @@ export const createDocsViteConfig = (options: {
     console.warn('Could not read package.json for version, using default')
   }
 
+  // Plugin to inject version into HTML for deployment scenarios
+  const versionInjectionPlugin = () => {
+    return {
+      name: 'version-injection',
+      transformIndexHtml(html: string) {
+        return html.replace(
+          '<head>',
+          `<head>
+  <script>window.__APP_VERSION__ = "${version}";</script>`
+        )
+      }
+    }
+  }
+
   return defineConfig({
-    plugins: [react(), ...plugins],
+    plugins: [react(), versionInjectionPlugin(), ...plugins],
     base: basePath,
     build: {
       outDir: 'dist',
