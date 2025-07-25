@@ -200,6 +200,14 @@ body {
   color: rgba(255, 255, 255, 0.95);
 }
 
+.brand-default {
+  background: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
 .brand-tagline {
   margin: 0;
   font-size: 1rem;
