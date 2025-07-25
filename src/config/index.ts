@@ -41,6 +41,8 @@ export const createDocsViteConfig = (options: {
       port
     },
     define: {
+      // Inject the version at build time so it's available in the deployed static files
+      // This is used by DocsApp when config.version.source is 'package.json'
       __APP_VERSION__: JSON.stringify(version),
       ...defineVars
     }
