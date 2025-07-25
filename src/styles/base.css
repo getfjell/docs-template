@@ -200,14 +200,6 @@ body {
   color: rgba(255, 255, 255, 0.95);
 }
 
-.brand-core {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 10px rgba(240, 147, 251, 0.5));
-}
-
 .brand-tagline {
   margin: 0;
   font-size: 1rem;
