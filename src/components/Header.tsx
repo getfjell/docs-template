@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="brand">
           <h1 className="brand-title">
             <span className="brand-fjell">{brandMain}</span>
-            {brandSub && <span className="brand-core">{brandSub}</span>}
+            {brandSub && <span className="brand-default">{brandSub}</span>}
           </h1>
           <p className="brand-tagline">{branding.tagline}</p>
         </div>
