@@ -35,13 +35,13 @@
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "clean": "rimraf dist",
-    "build": "pnpm run clean && pnpm run lint && node build.js",
-    "dev": "pnpm exec tsc --watch",
-    "demo": "cd demo && pnpm install && pnpm dev",
-    "demo:build": "cd demo && pnpm install && pnpm build",
+    "build": "npm run clean && npm run lint && node build.js",
+    "dev": "npx tsc --watch",
+    "demo": "cd demo && npm install && npm run dev",
+    "demo:build": "cd demo && npm install && npm run build",
     "test": "vitest --run --coverage",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "pnpm run clean && pnpm run build"
+    "prepublishOnly": "npm run clean && npm run build"
   },
   "peerDependencies": {
     "react": "^19.1.0",
@@ -84,7 +84,6 @@
   ],
   "author": "Fjell Team",
   "license": "MIT",
-  "packageManager": "pnpm@10.13.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/getfjell/docs-template.git"
