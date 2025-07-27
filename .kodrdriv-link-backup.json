@@ -1,7 +1,0 @@
-{
-  ".:@fjell/eslint-config": {
-    "originalVersion": "^1.1.3",
-    "dependencyType": "devDependencies",
-    "relativePath": "."
-  }
-}
