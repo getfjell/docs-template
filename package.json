@@ -1,6 +1,6 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
@@ -34,7 +34,7 @@
   ],
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
-    "clean": "rimraf dist",
+    "clean": "rm -rf dist",
     "build": "npm run clean && npm run lint && node build.js",
     "dev": "npx tsc --watch",
     "demo": "cd demo && npm install && npm run dev",
@@ -71,7 +71,6 @@
     "esbuild": "^0.25.8",
     "eslint": "^9.32.0",
     "jsdom": "^26.1.0",
-    "rimraf": "^6.0.1",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   },
