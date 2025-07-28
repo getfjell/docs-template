@@ -1,7 +1,8 @@
+import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
-import { Header } from '@/components/Header'
-import { DocsConfig } from '@/types'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { Header } from '../../src/components/Header'
+import { DocsConfig } from '../../src/types'
 
 const mockConfig: DocsConfig = {
   projectName: 'Fjell Core',
@@ -24,7 +25,8 @@ const mockConfig: DocsConfig = {
   version: {
     source: 'manual',
     value: '1.0.0'
-  }
+  },
+  filesToCopy: []
 }
 
 describe('Header', () => {

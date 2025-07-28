@@ -3,11 +3,12 @@ import ReactMarkdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import remarkGfm from 'remark-gfm'
-import { DocsConfig, DocumentSection } from '@/types'
+import { DocsConfig, DocumentSection } from '../types'
 
 interface ContentRendererProps {
   content: string
   sectionId: string
+  subsectionId?: string | null
   sectionData?: DocumentSection
   loading: boolean
   config: DocsConfig
@@ -55,15 +56,15 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{
-              code({inline, className, children, ...props}: any) {
+              code({ inline, className, children, ...props }: any) {
                 const match = /language-(\w+)/.exec(className || '')
                 return !inline && match ? (
-                                     <SyntaxHighlighter
-                     style={oneLight as any}
-                     language={match[1]}
-                     PreTag="div"
-                     {...props}
-                   >
+                  <SyntaxHighlighter
+                    style={oneLight as any}
+                    language={match[1]}
+                    PreTag="div"
+                    {...props}
+                  >
                     {String(children).replace(/\n$/, '')}
                   </SyntaxHighlighter>
                 ) : (
@@ -72,7 +73,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
                   </code>
                 )
               },
-              img({src, alt, ...props}) {
+              img({ src, alt, ...props }) {
                 // Handle relative image paths
                 const imageSrc = src?.startsWith('/') ? src : `${config.basePath}${src || ''}`
 
@@ -87,7 +88,7 @@ export const ContentRenderer: React.FC<ContentRendererProps> = ({
                   />
                 )
               },
-              a({href, children, ...props}) {
+              a({ href, children, ...props }) {
                 // Handle relative links
                 const isExternal = href?.startsWith('http') || href?.startsWith('//')
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { DocsConfig } from '@/types'
+import { DocsConfig } from '../types'
 import { Header } from './Header'
 
 interface LayoutProps {

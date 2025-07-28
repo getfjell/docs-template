@@ -4,6 +4,15 @@ export interface DocumentSection {
   subtitle: string;
   file: string;
   content?: string;
+  subsections?: DocumentSubsection[];
+}
+
+export interface DocumentSubsection {
+  id: string;
+  title: string;
+  subtitle: string;
+  file: string;
+  content?: string;
 }
 
 export interface BrandingConfig {

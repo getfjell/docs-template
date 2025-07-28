@@ -1,12 +1,12 @@
 import React from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
-import { DocsApp } from '@/components/DocsApp'
-import { DocsConfig } from '@/types'
-import * as contentLoader from '@/utils/contentLoader'
+import { DocsApp } from '../../src/components/DocsApp'
+import { DocsConfig } from '../../src/types'
+import * as contentLoader from '../../src/utils/contentLoader'
 
 // Mock the child components
-vi.mock('@/components/Navigation', () => ({
+vi.mock('../../src/components/Navigation', () => ({
   Navigation: ({ currentSection }: any) => (
     <div data-testid="navigation">
       <span data-testid="current-section">{currentSection}</span>
@@ -14,7 +14,7 @@ vi.mock('@/components/Navigation', () => ({
   )
 }))
 
-vi.mock('@/components/ContentRenderer', () => ({
+vi.mock('../../src/components/ContentRenderer', () => ({
   ContentRenderer: ({ content, loading, sectionId }: any) => (
     <div data-testid="content-renderer">
       <span data-testid="section-id">{sectionId}</span>
@@ -24,19 +24,19 @@ vi.mock('@/components/ContentRenderer', () => ({
   )
 }))
 
-vi.mock('@/components/Layout', () => ({
+vi.mock('../../src/components/Layout', () => ({
   Layout: ({ children }: any) => (
     <div data-testid="layout">{children}</div>
   )
 }))
 
 // Mock the contentLoader
-vi.mock('@/utils/contentLoader', () => ({
+vi.mock('../../src/utils/contentLoader', () => ({
   loadDocument: vi.fn()
 }))
 
 // Mock CSS import
-vi.mock('@/styles/base.css', () => ({}))
+vi.mock('../../src/styles/base.css', () => ({}))
 
 describe('DocsApp', () => {
   const mockConfig: DocsConfig = {
@@ -44,7 +44,8 @@ describe('DocsApp', () => {
     basePath: '/docs',
     port: 3000,
     branding: {
-      theme: 'light'
+      theme: 'light',
+      tagline: 'Test tagline'
     },
     sections: [
       {
@@ -63,14 +64,13 @@ describe('DocsApp', () => {
     version: {
       source: 'manual',
       value: '1.0.0'
-    }
+    },
+    filesToCopy: []
   }
-
-  const mockLoadDocument = contentLoader.loadDocument as any
 
   beforeEach(() => {
     vi.clearAllMocks()
-    mockLoadDocument.mockResolvedValue('# Test Content\n\nThis is test content.')
+    vi.mocked(contentLoader.loadDocument).mockResolvedValue('# Test Content\n\nThis is test content.')
 
     // Clear any existing window properties
     delete (window as any).__APP_VERSION__
@@ -107,14 +107,14 @@ describe('DocsApp', () => {
   })
 
   it('loads documents for all sections', async () => {
-    mockLoadDocument.mockResolvedValue('# Loaded Content')
+    vi.mocked(contentLoader.loadDocument).mockResolvedValue('# Loaded Content')
 
     render(<DocsApp config={mockConfig} />)
 
     await waitFor(() => {
-      expect(mockLoadDocument).toHaveBeenCalledWith('/overview.md')
-      expect(mockLoadDocument).toHaveBeenCalledWith('/api.md')
-      expect(mockLoadDocument).toHaveBeenCalledTimes(2)
+      expect(vi.mocked(contentLoader.loadDocument)).toHaveBeenCalledWith('/overview.md')
+      expect(vi.mocked(contentLoader.loadDocument)).toHaveBeenCalledWith('/api.md')
+      expect(vi.mocked(contentLoader.loadDocument)).toHaveBeenCalledTimes(2)
     })
 
     await waitFor(() => {
@@ -136,8 +136,8 @@ describe('DocsApp', () => {
   })
 
   it('handles document loading errors gracefully', async () => {
-    mockLoadDocument.mockRejectedValue(new Error('Failed to load'))
-    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.mocked(contentLoader.loadDocument).mockRejectedValue(new Error('Failed to load'))
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => { })
 
     render(<DocsApp config={mockConfig} />)
 
@@ -174,7 +174,7 @@ describe('DocsApp', () => {
   })
 
   it('handles version from injected window variable', async () => {
-    ;(window as any).__APP_VERSION__ = '3.0.0'
+    ; (window as any).__APP_VERSION__ = '3.0.0'
     const windowConfig = {
       ...mockConfig
       // No version config - will fall back to window variable
@@ -213,7 +213,7 @@ describe('DocsApp', () => {
       }
     }
 
-    mockLoadDocument.mockResolvedValue('# Test Content\n\nOriginal content.')
+    vi.mocked(contentLoader.loadDocument).mockResolvedValue('# Test Content\n\nOriginal content.')
 
     render(<DocsApp config={customConfig} />)
 

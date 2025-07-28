@@ -1,10 +1,11 @@
 import React from 'react'
-import { DocumentSection } from '@/types'
+import { DocumentSection } from '../types'
 
 interface NavigationProps {
   sections: DocumentSection[]
   currentSection: string
-  onSectionChange: (sectionId: string) => void
+  currentSubsection: string | null
+  onSectionChange: (sectionId: string, subsectionId?: string) => void
   sidebarOpen: boolean
   setSidebarOpen: (open: boolean) => void
 }
@@ -12,6 +13,7 @@ interface NavigationProps {
 export const Navigation: React.FC<NavigationProps> = ({
   sections,
   currentSection,
+  currentSubsection,
   onSectionChange,
   sidebarOpen,
   setSidebarOpen
@@ -38,7 +40,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             {sections.map((section) => (
               <li key={section.id}>
                 <button
-                  className={`nav-item ${currentSection === section.id ? 'active' : ''}`}
+                  className={`nav-item ${currentSection === section.id && !currentSubsection ? 'active' : ''}`}
                   onClick={() => {
                     onSectionChange(section.id)
                     setSidebarOpen(false) // Close mobile sidebar on selection
@@ -49,6 +51,28 @@ export const Navigation: React.FC<NavigationProps> = ({
                     <span className="nav-subtitle">{section.subtitle}</span>
                   </div>
                 </button>
+
+                {/* Subsections */}
+                {section.subsections && currentSection === section.id && (
+                  <ul className="nav-subsections">
+                    {section.subsections.map((subsection) => (
+                      <li key={subsection.id}>
+                        <button
+                          className={`nav-subitem ${currentSubsection === subsection.id ? 'active' : ''}`}
+                          onClick={() => {
+                            onSectionChange(section.id, subsection.id)
+                            setSidebarOpen(false)
+                          }}
+                        >
+                          <div className="nav-subitem-content">
+                            <span className="nav-subtitle">{subsection.title}</span>
+                            <span className="nav-description">{subsection.subtitle}</span>
+                          </div>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
