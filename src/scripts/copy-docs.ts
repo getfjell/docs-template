@@ -1,3 +1,3 @@
-import { copyDocs } from './copy-docs-core.js';
+import { copyDocs } from './copy-docs-core';
 
 copyDocs();
