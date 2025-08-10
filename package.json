@@ -1,6 +1,6 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.28",
+  "version": "1.0.30-dev.0",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
@@ -44,12 +44,12 @@
     "prepublishOnly": "npm run clean && npm run build"
   },
   "peerDependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
   },
   "dependencies": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^15.6.1",
     "remark-gfm": "^4.0.1"
