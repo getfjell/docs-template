@@ -41,6 +41,7 @@
     "demo:build": "cd demo && npm install && npm run build",
     "test": "vitest --run --coverage",
     "typecheck": "tsc --noEmit",
+    "precommit": "npm run clean && npm run lint && npm run build && npm run test",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "peerDependencies": {
