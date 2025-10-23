@@ -1,7 +1,7 @@
 import { build } from 'esbuild';
-import { createReactConfig } from '@fjell/eslint-config/esbuild/react';
-import { createCliConfig } from '@fjell/eslint-config/esbuild/cli';
-import { createLibraryConfig } from '@fjell/eslint-config/esbuild/library';
+import { createReactConfig } from '@fjell/common-config/esbuild/react';
+import { createCliConfig } from '@fjell/common-config/esbuild/cli';
+import { createLibraryConfig } from '@fjell/common-config/esbuild/library';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 
 // Copy CSS files to dist (custom logic preserved)
