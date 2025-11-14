@@ -1,6 +1,6 @@
 {
   "name": "@fjell/docs-template",
-  "version": "1.0.43",
+  "version": "1.0.44",
   "description": "Shared documentation template for Fjell projects",
   "type": "module",
   "main": "dist/index.js",
@@ -58,7 +58,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.38.0",
-    "@fjell/common-config": "^1.1.29",
+    "@fjell/common-config": "^1.1.30",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@types/node": "^24.9.1",
